@@ -17,6 +17,7 @@ const checkForError = data => { if (data.error) throw new Error(data.error)}
 export const createUser = createAsyncThunk(
     'user/createUser',
     async (userFields) => {
+        console.log(userFields)
         const user = await db.createUser(userFields);
         checkForError(user)
         return user;
@@ -72,6 +73,8 @@ const userSlice = createSlice({
   })
 
 export const selectUser = state => state.user;
+export const selectStatus = state => state.user.status;
+export const selectIfSignedIn = state => Object.keys(state.user.userData).length;
 
 // export const { example } = userSlice.actions;
 

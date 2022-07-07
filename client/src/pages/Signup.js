@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createUser } from "../redux/user";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { createUser, selectIfSignedIn, selectStatus } from "../redux/user";
 
 import { useNewUser } from "../hooks";
 
@@ -58,11 +59,19 @@ const validityCheck = {
 const Signup = () => {
     const [userFromInput, updateUsername, updatePassword, updateConfirmedPassword, valid] = useNewUser(validityCheck);
     const dispatch = useDispatch();
-    const canSubmit = Object.values(valid).every(([isValid]) => isValid);
+    const navigate = useNavigate();
+    const signedIn = useSelector(selectIfSignedIn);
+    const status = useSelector(selectStatus);
+    const canSubmit = Object.values(valid).every(([isValid]) => isValid) && status === "idle";
     const handleSubmit = e => {
         e.preventDefault();
         dispatch(createUser(userFromInput));
     }
+    useEffect(() => {
+        if (signedIn) {
+            navigate("/")
+        }
+    }, [signedIn])
     return (
         <Form onSubmit={handleSubmit}>
             <h1>Sign up</h1>
@@ -74,7 +83,7 @@ const Signup = () => {
             <Validities>
                 {Object.entries(valid).map(([key, [validity, message]]) => <FormRequirement key={key} valid={validity} message={message}/>)}
             </Validities>
-            <Submit type="submit" disabled={!canSubmit}>Submit</Submit>
+            <Submit type="submit" disabled={!canSubmit}>{status === "loading" ? "Submitting" : "Submit"}</Submit>
         </Form>
     )
 }
