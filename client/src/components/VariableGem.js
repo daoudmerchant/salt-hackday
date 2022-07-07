@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 const Gem = styled.p`
-    margin-block: 0;
-    padding-inline: 1.3em;
-    height: 2em;
-    border: 1px solid black;
+    margin: .2em; .4em 0;
+    padding: .5em 1.3em;
+    border: 1px dashed gray;
+    color: gray;
     border-radius: 1em;
     display: flex;
     justify-content: center;

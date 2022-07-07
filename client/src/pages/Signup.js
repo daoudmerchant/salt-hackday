@@ -11,6 +11,7 @@ import styled from "styled-components";
 
 const Form = styled.form`
     display: grid;
+    background-color: white;
     grid-template-columns: 1fr;
     @media (min-width: 600px) {
         grid-template-columns: repeat(2, 1fr);
@@ -123,7 +124,7 @@ const Signup = () => {
         if (error) {
             dispatch(resetError());
         }
-    }, [JSON.stringify(userFromInput)])
+    }, [JSON.stringify(user)])
     return (
         <Form onSubmit={handleSubmit}>
             <Container>
