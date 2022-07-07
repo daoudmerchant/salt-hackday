@@ -51,8 +51,8 @@ export const useNewUser = (validation) => {
                 ? setValid(setKey("uppercase", true))
                 : setValid(setKey("uppercase", false))
         }
-        if (validation.min > 0) {
-            const passwordIsMinLength = user.password.length >= validation.min;
+        if (validation.min[0] > 0) {
+            const passwordIsMinLength = user.password.length >= validation.min[0];
             passwordIsMinLength
                 ? setValid(setKey("min", true))
                 : setValid(setKey("min", false))

@@ -1,18 +1,22 @@
 import styled from "styled-components";
 
-const ValidSpan = styled.span`
+const Para = styled.p`
+    margin: 1em 2em;
+`
+
+const Valid = styled(Para)`
     color: green;
 `
 
-const InvalidSpan = styled.span`
+const Invalid = styled(Para)`
     color: red;
 `
 
 
 const FormRequirement = ({valid, message}) => {
-    const Span = valid ? ValidSpan : InvalidSpan;
+    const Text = valid ? Valid : Invalid;
     return (
-        <p><Span>{message}</Span></p>
+        <Text>{message}</Text>
     )
 }
 

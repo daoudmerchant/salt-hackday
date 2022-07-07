@@ -9,6 +9,7 @@ const FormContainer = styled.div`
     position: relative;
     & > * {
         flex-grow: 1;
+        padding: 2em;
         border: 2px solid black;
         border-radius: 15px;
     }
