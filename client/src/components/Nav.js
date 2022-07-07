@@ -49,7 +49,7 @@ const MyLink = styled(NavLink)`
     display: flex;
     align-items: center;
     &.active {
-        background-color: #f3fff1;
+        background-color: white;
     }
 `
 

@@ -7,7 +7,7 @@ import SnippetCard from "../components/SnippetCard";
 
 const UserContainer = styled.div`
     padding: 3em;
-    max-width: 600px;
+    max-width: 700px;
     margin-inline: auto;
 `
 
@@ -24,11 +24,7 @@ const New = styled(Link)`
     height: min-content;
     padding: 1em 1.5em;
     border-radius: .5em;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-`
-
-const Username = styled.h1`
-
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
 `
 
 const UserHome = () => {
@@ -36,7 +32,7 @@ const UserHome = () => {
     return (
         <UserContainer>
             <HeaderContainer>
-                <Username>{user.username}</Username>
+                <h1>{user.username}</h1>
                 <New to="/snippets/new">+ New snippet</New>
             </HeaderContainer>
             {user.snippets.map(snippet => <SnippetCard key={snippet._id} snippet={snippet}/>)}

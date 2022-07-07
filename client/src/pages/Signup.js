@@ -76,7 +76,8 @@ const Submit = styled.button`
     color: white;
     font-size: 1.8em;
     border-radius: 5px;
-    padding: .5em 1.2em;
+    padding-block: .5em;
+    width: 8em;
     margin-top: 1em;
     &:disabled {
         border-color: silver;
@@ -125,7 +126,7 @@ const Signup = () => {
         if (error) {
             dispatch(resetError());
         }
-    }, [JSON.stringify(user)])
+    }, [JSON.stringify(userFromInput)])
     return (
         <Form onSubmit={handleSubmit}>
             <Container>

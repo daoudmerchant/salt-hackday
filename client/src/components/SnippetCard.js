@@ -36,14 +36,15 @@ const SnippetName = styled.p`
     text-overflow: ellipsis;
     overflow: hidden;
     whitespace: nowrap;
-    padding-right: 1em;
     display: flex;
     align-items: center;
-`
-
-const SnippetContents = styled.div`
+    `
+    
+    const SnippetContents = styled.div`
     margin-right: auto;
     width: 100%;
+    padding-right: ${({$dummy}) => $dummy ? "1em" : "0"};
+    ${({$dummy}) => $dummy ? "grid-column: 1 / -2;" : ""}
 `
 
 const VariableContainer = styled.div`
@@ -82,7 +83,7 @@ const Edit = styled(Link)`
 `
 
 const DeleteButton = styled.button`
-grid-column: -4 / -3;
+    grid-column: -4 / -3;
 `
 
 const Icon = styled.img`
@@ -118,7 +119,7 @@ export const SnippetCard = ({ snippet, dummy }) => {
     return (
         <Card $clicked={copied}>
             <MainContainer>
-                <SnippetContents>
+                <SnippetContents $dummy={dummy}>
                     <SnippetName>{snippet.title || snippet.text}</SnippetName>
                 </SnippetContents>
                 {dummy

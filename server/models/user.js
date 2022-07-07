@@ -21,12 +21,13 @@ UserSchema.methods = {
   validatePassword: function (unchecked) {
     return bcrypt.compareSync(unchecked, this.password)
   },
-  hashPassword: unhashed => {
-    return bcrypt.hashSync(unhashed, 10)
-  }
+  hashPassword: unhashed => bcrypt.hashSync(unhashed, 10)
 }
 
 UserSchema.pre('save', function (next) {
+  if (!this.isModified("password")) {
+    return next();
+  }
   this.password = this.hashPassword(this.password)
   next()
 })

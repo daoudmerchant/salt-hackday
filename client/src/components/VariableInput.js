@@ -4,7 +4,7 @@ const Label = styled.label`
     display: flex;
     flex-direction: column;
     width: 100%;
-    font-size: 1.3em;
+    font-size: 1.1em;
 `
 
 const Input = styled.input`

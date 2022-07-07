@@ -85,7 +85,8 @@ const Submit = styled.button`
     color: white;
     font-size: 1.8em;
     border-radius: 5px;
-    padding: .5em 1.2em;
+    padding-block: .5em;
+    width: 10em;
     margin-top: 1em;
     white-space: nowrap;
     &:disabled {
@@ -142,7 +143,7 @@ const SnippetEditor = ({ isNew }) => {
     }, [JSON.stringify(user)]);
     return (
         <SnippetForm onSubmit={handleSubmit}>
-            <Label>Title (optional): <TitleInput value={title} onChange={updateTitle}/></Label>
+            <Label>Title (optional): <TitleInput value={title} onChange={updateTitle} maxLength={20}/></Label>
             <Label>Snippet: <TextInput value={text} onChange={updateText}/></Label>
             <VariableInfo>Don't forget, you can add variables using <This>{"${this}"}</This> syntax</VariableInfo>
             <Container>

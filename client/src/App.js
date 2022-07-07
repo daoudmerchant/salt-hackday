@@ -23,6 +23,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Oxygen', sans-serif;
   }
 
+  * {
+    box-sizing: border-box;
+  }
+
   #root {
     display: grid;
     grid-template-rows: 4em 1fr 40px;
@@ -37,6 +41,7 @@ const GlobalStyle = createGlobalStyle`
   button {
     background-color: transparent;
     border: none;
+    transition: .1s all;
   }
 
   a, a:visited {
@@ -47,7 +52,7 @@ const GlobalStyle = createGlobalStyle`
 
 const Main = styled.main`
   overflow-y: scroll;
-  background-color: #f8f8f8;
+  background-color: #f3fff1;
 `
 
 function App() {

@@ -25,7 +25,7 @@ const ScissorImg = styled.img`
 `
 
 const Subtitle = styled.h2`
-    margin-top: 0;
+    margin: 0;
 `
 
 const SnippetContainer = styled.div`
@@ -34,16 +34,24 @@ const SnippetContainer = styled.div`
     margin-block: 2em;
 `
 
-const SignIn = styled(Link)`
-
+const SignUp = styled(Link)`
+    border-bottom: 2px dotted black;
+    padding: 0 .3em .2em;
+    &:hover {
+        color: darkblue;
+    }
 `
 
 const LogIn = styled(Link)`
-
+    background-color: #7dc0ff;
+    color: white;
+    font-size: 1.8em;
+    border-radius: 5px;
+    padding: .5em 1em;
 `
 
 const Invite = styled.p`
-
+    margin-block: 2em;
 `
 
 const Scissors = () => <ScissorImg src={scissors} alt="scissor icon"/>
@@ -54,10 +62,10 @@ const Home = () => {
             <Logo>S<Scissors/>ippets</Logo>
             <Subtitle>One-click copy text snippets</Subtitle>
             <SnippetContainer>
-                <SnippetCard snippet={{text: "Click the button to copy this text ➜"}} dummy={true}/>
+                <SnippetCard snippet={{text: "Click the icon to copy this text"}} dummy={true}/>
             </SnippetContainer>
-            <SignIn to="/form/login">Log in</SignIn>
-            <Invite>No account? <LogIn to="/form/signup">Sign up</LogIn></Invite>
+            <LogIn to="/form/login">Log in</LogIn>
+            <Invite>No account? <SignUp to="/form/signup">Sign up</SignUp></Invite>
         </Container>
     )
 }

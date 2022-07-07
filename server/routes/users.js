@@ -37,7 +37,6 @@ router.post("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   const updatedUser = await db.updateSnippet(req.params.id, req.body);
-  console.log(updatedUser);
   res.json({ action: "update snippet", result: "success", user: formatUser(updatedUser)})
 })
 

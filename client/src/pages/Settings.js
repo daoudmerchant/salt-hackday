@@ -5,13 +5,26 @@ import { selectIfSignedIn, signOut } from "../redux/user";
 import styled from "styled-components";
 
 const SettingsContainer = styled.div`
-    margin: 3em auto;
-    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
+    align-items: center;
+    padding: 2em;
+`
+
+const Text = styled.p`
+    margin: 0 0 2em;
+    font-size: 1.2em;
 `
 
 const SignOut = styled.button`
-    padding: 1em 2em;
-    border: 2px solid black;
+    border: 2px solid #3f96e8;
+    color: #3f96e8;
+    font-size: 1.8em;
+    border-radius: 5px;
+    padding: .5em 1em;
+
 `
 
 const Settings = () => {
@@ -26,7 +39,7 @@ const Settings = () => {
     }, [isSignedIn])
     return (
         <SettingsContainer>
-            <p>(Imagine a bunch of awesome settings here)</p>
+            <Text>(Imagine a bunch of awesome settings here)</Text>
             <SignOut onClick={handleSignOut}>Sign out</SignOut>
         </SettingsContainer>
     )
