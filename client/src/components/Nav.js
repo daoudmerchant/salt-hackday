@@ -8,6 +8,9 @@ const Nav = () => {
                     <li>
                         <NavLink to="/">Home</NavLink>
                     </li>
+                    <li>
+                        <NavLink to="/form/signup">Sign up</NavLink>
+                    </li>
                 </ul>
             </nav>
         </header>

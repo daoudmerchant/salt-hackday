@@ -5,6 +5,8 @@ import { createGlobalStyle} from "styled-components";
 import Nav from "./components/Nav";
 import Home from "./pages/Home";
 import Footer from "./components/Footer";
+import FormWrapper from "./components/FormWrapper";
+import Signup from "./pages/Signup";
 
 const GlobalStyle = createGlobalStyle`
   html, body, #root {
@@ -43,6 +45,9 @@ function App() {
         <Main>
           <Routes>
             <Route path="/" element={<Home/>}/>
+            <Route path="form" element={<FormWrapper/>}>
+              <Route path="signup" element={<Signup/>}/>
+            </Route>
           </Routes>
         </Main>
       </Router>
