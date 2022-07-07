@@ -9,11 +9,15 @@ const Card = styled.div`
     border: 2px solid blue;
     border-radius: 15px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 `
 
 const SnippetName = styled.p`
     text-overflow: ellipsis;
+`
+
+const SnippetContents = styled.div`
+    margin-right: auto;
 `
 
 const VariableContainer = styled.div`
@@ -24,10 +28,13 @@ const CopyButton = styled.button`
 
 `
 
+const ClearButton = styled.button`
+`
+
 export const SnippetCard = ({ snippet }) => {
     const [copied, setCopied] = useState(false);
     const variables = getVariables(snippet.text);
-    const [variableValues, updateVariableValues] = useEditableKeys(variables);
+    const [variableValues, updateVariableValues, resetVariableValues] = useEditableKeys(variables);
     const canBeCopied = !variables.length || Object.values(variableValues).every(Boolean);
     const handleCopy = async () => {
         const accessRights = await navigator.permissions.query({name: "clipboard-write"});
@@ -42,7 +49,7 @@ export const SnippetCard = ({ snippet }) => {
     }
     return (
         <Card>
-            <div>
+            <SnippetContents>
                 <SnippetName>{snippet.title || snippet.text}</SnippetName>
                 <VariableContainer>
                     {variables.map(variable => {
@@ -50,7 +57,11 @@ export const SnippetCard = ({ snippet }) => {
                         return <VariableInput key={variable} variable={variable} update={update} value={variableValues[variable]} />
                     })}
                 </VariableContainer>
-            </div>
+            </SnippetContents>
+            {variables.length
+                ? <ClearButton disabled={!Object.values(variableValues).some(Boolean)}onClick={resetVariableValues}>Clear</ClearButton>
+                : null
+            }
             <CopyButton disabled={!canBeCopied} onClick={handleCopy}>{copied ? "Copied!" : "Copy to clipboard"}</CopyButton>
         </Card>
 
