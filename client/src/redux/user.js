@@ -70,6 +70,9 @@ const userSlice = createSlice({
         resetError: (state) => {
             state.errorMsg = '';
             state.status = "idle"
+        },
+        signOut: (state) => {
+            state.userData = {};
         }
     },
     extraReducers: (builder) => {
@@ -90,7 +93,10 @@ export const selectUser = state => state.user.userData;
 export const selectStatus = state => state.user.status;
 export const selectIfSignedIn = state => Object.keys(state.user.userData).length;
 export const selectError = state => state.user.errorMsg;
+export const selectSnippet = id => state => state.user.userData.snippets
+    ? state.user.userData.snippets.find(snippet => snippet._id === id)
+    : false;
 
-export const { resetError } = userSlice.actions;
+export const { resetError, signOut } = userSlice.actions;
 
 export default userSlice.reducer;

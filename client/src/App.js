@@ -12,6 +12,8 @@ import Footer from "./components/Footer";
 import FormWrapper from "./components/FormWrapper";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Settings from "./pages/Settings";
+import Snippet from "./pages/Snippet";
 
 const GlobalStyle = createGlobalStyle`
   html, body, #root {
@@ -54,7 +56,10 @@ function App() {
             <Route path="form" element={<FormWrapper/>}>
               <Route path="login" element={<Login/>}/>
               <Route path="signup" element={<Signup/>}/>
+              <Route path="settings" element={<Settings/>}/>
             </Route>
+            <Route path="/snippets/new" element={<Snippet isNew={true}/>}/>
+            <Route path="/snippets/:id" element={<Snippet/>}/>
           </Routes>
         </Main>
       </Router>

@@ -1,13 +1,21 @@
 import { useEffect, useState } from "react";
 
+export const useFormField = (initial = '') => {
+    const [val, setVal] = useState(initial);
+    return [
+        val,
+        e => setVal(e.target.value)
+    ]
+}
+
 export const useUserDetails = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [username, updateUsername] = useFormField();
+    const [password, updatePassword] = useFormField();
 
     return [
         { username, password },
-        e => setUsername(e.target.value),
-        e => setPassword(e.target.value)
+        updateUsername,
+        updatePassword
     ]
 }
 
@@ -28,7 +36,7 @@ const setKey = (key, bool) => prev => ({...prev, [key]: [bool, prev[key][1]]})
 
 export const useNewUser = (validation) => {
     const [user, updateUsername, updatePassword] = useUserDetails();
-    const [confirmedPassword, setConfirmedPassword] = useState('');
+    const [confirmedPassword, updateConfirmedPassword] = useFormField();
     const emptyValidation = {...Object.fromEntries(Object.keys(validation).map(key => [key, [false, validation[key][1]]])), matching: [false, "Passwords match"]}
     const [valid, setValid] = useState(emptyValidation);
     useEffect(() => {
@@ -70,7 +78,7 @@ export const useNewUser = (validation) => {
         {...user, confirmedPassword},
         updateUsername,
         updatePassword,
-        e => setConfirmedPassword(e.target.value),
+        updateConfirmedPassword,
         valid
     ]
 }

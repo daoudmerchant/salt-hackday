@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux"
 import { selectUser } from "../redux/user"
 
 const UserHome = () => {
     const user = useSelector(selectUser);
     console.log(user);
-    return <p>Hi</p>
+    return <Link to="/snippets/new">A snippet link</Link>
     // return (
     //     <>
     //         <p>{user.username}</p>

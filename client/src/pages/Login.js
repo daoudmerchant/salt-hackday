@@ -51,7 +51,6 @@ const Login = () => {
     const isSignedIn = useSelector(selectIfSignedIn);
     const status = useSelector(selectStatus);
     const error = useSelector(selectError);
-    console.log(error);
     const [user, updateUsername, updatePassword] = useUserDetails();
     const canSubmit = user.username && user.password.length >= 6 && status === "idle";
     const handleSubmit = e => {
