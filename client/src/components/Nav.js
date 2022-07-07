@@ -6,7 +6,7 @@ import { selectIfSignedIn } from "../redux/user";
 import scissors from "../assets/scissor.png";
 
 const Header = styled.header`
-    background-color: #F3F8F2;
+    background-color: #def5d3;
     height: 100%;
 `
 
@@ -49,7 +49,7 @@ const MyLink = styled(NavLink)`
     display: flex;
     align-items: center;
     &.active {
-        background-color: white;
+        background-color: #f3fff1;
     }
 `
 

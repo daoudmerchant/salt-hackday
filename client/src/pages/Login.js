@@ -10,38 +10,72 @@ const Form = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-inline: 2em;
+    padding-bottom: 2em;
+    background-color: white;
+`
+
+const SignupLink = styled(Link)`
+    border-bottom: 2px dotted black;
+    padding: 0 .3em .2em;
+    &:hover {
+        color: darkblue;
+    }
 `
 
 const Inputs = styled.div`
     display: flex;
     flex-direction: column;
     margin-block: 2em;
+    width: 100%;
+    max-width: 400px;
 `
 
 const Label = styled.label`
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     margin-block: .5em;
 `
 
 const Input = styled.input`
-    margin-left: 2em;
+    font-size: 1.2em;
+    padding: .7em 1.2em;
+    margin-top: .2em;
+`
+
+const Container = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @media (min-width: 600px) {
+        justify-content: space-between;
+        flex-direction: row;
+        align-items: baseline;
+    }
 `
 
 const Error = styled.p`
-    height: 2em;
-    color: red;
+    color: firebrick;
+    background-color: #f7dada;
+    border-left: 4px solid firebrick;
+    padding: 1.3em 2em;
+    margin-block: 0;
 `
 
 const Submit = styled.button`
-    border: 2px solid blue;
-    color: blue;
-    font-size: 1.5em;
+    border: 2px solid #3f96e8;
+    background-color: #3f96e8;
+    color: white;
+    font-size: 1.8em;
+    border-radius: 5px;
     padding: .5em 1.2em;
-    margin-block: 1em;
+    margin-top: 1em;
     &:disabled {
-        border-color: grey;
-        color: grey;
+        border-color: silver;
+        background-color: transparent;
+        color: silver;
     }
 `
 
@@ -70,13 +104,15 @@ const Login = () => {
     return (
         <Form onSubmit={handleSubmit}>
             <h1>Log in</h1>
-            <p>No account yet? <Link to="/form/signup">Sign up</Link></p>
+            <p>No account yet? <SignupLink to="/form/signup">Sign up</SignupLink></p>
             <Inputs>
                 <Label>Username<Input type="text" value={user.username} onChange={updateUsername} maxLength={20} required/></Label>
                 <Label>Password<Input type="password" value={user.password} onChange={updatePassword} required/></Label>
             </Inputs>
-            <Error>{error}</Error>
-            <Submit type="submit" disabled={!canSubmit}>{status === "loading" ? "Submitting" : "Submit"}</Submit>
+            <Container>
+                {error ? <Error>{error}</Error> : <div/>}
+                <Submit type="submit" disabled={!canSubmit}>{status === "loading" ? "Submitting" : "Submit"}</Submit>
+            </Container>
         </Form>
     )
 }

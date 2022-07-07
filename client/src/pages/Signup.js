@@ -93,6 +93,7 @@ const Error = styled.p`
     background-color: #f7dada;
     border-left: 4px solid firebrick;
     padding: 1.3em 2em;
+    margin-block: 0;
 `
 
 const validityCheck = {

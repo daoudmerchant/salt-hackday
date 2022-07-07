@@ -4,6 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectIfSignedIn, signOut } from "../redux/user";
 import styled from "styled-components";
 
+const SettingsContainer = styled.div`
+    margin: 3em auto;
+    max-width: 600px;
+`
+
 const SignOut = styled.button`
     padding: 1em 2em;
     border: 2px solid black;
@@ -20,10 +25,10 @@ const Settings = () => {
         }
     }, [isSignedIn])
     return (
-        <div>
-            Settings
+        <SettingsContainer>
+            <p>(Imagine a bunch of awesome settings here)</p>
             <SignOut onClick={handleSignOut}>Sign out</SignOut>
-        </div>
+        </SettingsContainer>
     )
 }
 

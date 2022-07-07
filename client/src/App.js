@@ -47,7 +47,7 @@ const GlobalStyle = createGlobalStyle`
 
 const Main = styled.main`
   overflow-y: scroll;
-  background-color: #f5edf1;
+  background-color: #f8f8f8;
 `
 
 function App() {

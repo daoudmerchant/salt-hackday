@@ -18,7 +18,7 @@ const HeaderContainer = styled.div`
 `
 
 const New = styled(Link)`
-    background-color: whitesmoke;
+    background-color: white;
     display: flex;
     align-items: center;
     height: min-content;
