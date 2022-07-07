@@ -38,7 +38,7 @@ const Submit = styled.button`
     color: blue;
     font-size: 1.5em;
     padding: .5em 1.2em;
-    margin-top: 1em;
+    margin-block: 1em;
     &:disabled {
         border-color: grey;
         color: grey;
@@ -51,7 +51,6 @@ const Login = () => {
     const isSignedIn = useSelector(selectIfSignedIn);
     const status = useSelector(selectStatus);
     const error = useSelector(selectError);
-    console.log(error)
     const [user, updateUsername, updatePassword] = useUserDetails();
     const canSubmit = user.username && user.password.length >= 6 && status === "idle";
     const handleSubmit = e => {

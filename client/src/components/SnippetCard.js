@@ -8,11 +8,17 @@ import { useEditableKeys } from "../hooks"
 
 import VariableInput from "./VariableInput"
 
+import check from "../assets/check.png";
+import copy from "../assets/copy.png";
+
 const Card = styled.div`
-    border: 2px solid blue;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
     border-radius: 15px;
     display: flex;
     justify-content: center;
+    padding: .8em 1.2em;
+    transition: .5s all;
+    background-color: ${({$clicked}) => $clicked ? "#c7f0b4" : "transparent"};
 `
 
 const SnippetName = styled.p`
@@ -42,7 +48,11 @@ const DeleteButton = styled.button`
 
 `
 
-export const SnippetCard = ({ snippet }) => {
+const Icon = styled.img`
+    height: 2.5em;
+`
+
+export const SnippetCard = ({ snippet, dummy }) => {
     const dispatch = useDispatch();
     const [copied, setCopied] = useState(false);
     const variables = getVariables(snippet.text);
@@ -51,11 +61,9 @@ export const SnippetCard = ({ snippet }) => {
     const handleCopy = async () => {
         const accessRights = await navigator.permissions.query({name: "clipboard-write"});
         if (accessRights.state === "granted" || accessRights.state === "prompt") {
-            console.log(variables);
             const textToCopy = variables.length
                 ? variables.reduce((str, variable) => str.replace(new RegExp('\\$\\{' + variable + '\\}', 'g'), variableValues[variable]), snippet.text)
                 : snippet.text;
-            console.log(textToCopy);
             await navigator.clipboard.writeText(textToCopy);
             setCopied(true);
             setTimeout(() => setCopied(false), 2500);
@@ -67,7 +75,7 @@ export const SnippetCard = ({ snippet }) => {
         }
     }
     return (
-        <Card>
+        <Card $clicked={copied}>
             <SnippetContents>
                 <SnippetName>{snippet.title || snippet.text}</SnippetName>
                 <VariableContainer>
@@ -81,9 +89,13 @@ export const SnippetCard = ({ snippet }) => {
                 ? <ClearButton disabled={!Object.values(variableValues).some(Boolean)}onClick={resetVariableValues}>Clear</ClearButton>
                 : null
             }
-            <Edit to={`/snippets/${snippet._id}`}>Edit</Edit>
-            <DeleteButton onClick={handleDelete}>Delete</DeleteButton>
-            <CopyButton disabled={!canBeCopied} onClick={handleCopy}>{copied ? "Copied!" : "Copy to clipboard"}</CopyButton>
+            {dummy
+                ? null
+                : <>
+                    <Edit to={`/snippets/${snippet._id}`}>Edit</Edit>
+                    <DeleteButton onClick={handleDelete}>Delete</DeleteButton>
+                  </>}
+            <CopyButton disabled={!canBeCopied} onClick={handleCopy}>{copied ? <Icon src={check} alt="checkmark"/> : <Icon src={copy} alt="copy to clipboard"/>}</CopyButton>
         </Card>
 
     )

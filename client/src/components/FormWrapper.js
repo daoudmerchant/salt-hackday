@@ -5,11 +5,13 @@ const FormContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10%;
     position: relative;
+    max-width: 800px;
+    margin-inline: auto;
+    margin-top: 2em;
     & > * {
         flex-grow: 1;
-        padding: 2em;
+        padding: 0;
         border: 2px solid black;
         border-radius: 15px;
     }

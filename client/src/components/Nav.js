@@ -35,7 +35,7 @@ const ListItem = styled.li`
     flex-direction: column;
 `
 
-const Scissors = styled.img`
+const ScissorImg = styled.img`
     height: 1.3em;
     width: .8em;
     object-fit: cover;
@@ -57,6 +57,8 @@ const Logo = styled(MyLink)`
     font-size: 2em;
 `
 
+const Scissors = () => <ScissorImg src={scissors} alt="scissors icon"/>
+
 const Nav = () => {
     const signedIn = useSelector(selectIfSignedIn);
     return (
@@ -64,7 +66,7 @@ const Nav = () => {
             <NavElem>
                 <LinkList>
                     <ListItem>
-                        <Logo to="/">S<Scissors src={scissors} alt="scissors icon"/>ippets</Logo>
+                        <Logo to="/">S<Scissors />ippets</Logo>
                     </ListItem>
                     {signedIn
                         ? <ListItem>
