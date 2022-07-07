@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createUser, selectIfSignedIn, selectStatus } from "../redux/user";
+import { createUser, selectIfSignedIn, selectStatus,selectUser, selectError, resetError } from "../redux/user";
 
 import { useNewUser } from "../hooks";
 
@@ -62,6 +62,8 @@ const Signup = () => {
     const navigate = useNavigate();
     const signedIn = useSelector(selectIfSignedIn);
     const status = useSelector(selectStatus);
+    const user = useSelector(selectUser);
+    const error = useSelector(selectError);
     const canSubmit = Object.values(valid).every(([isValid]) => isValid) && status === "idle";
     const handleSubmit = e => {
         e.preventDefault();
@@ -72,9 +74,15 @@ const Signup = () => {
             navigate("/")
         }
     }, [signedIn])
+    useEffect(() => {
+        if (error) {
+            dispatch(resetError());
+        }
+    }, [JSON.stringify(user)])
     return (
         <Form onSubmit={handleSubmit}>
             <h1>Sign up</h1>
+            <p>Got an account already? <Link to="/form/login">Log in</Link></p>
             <Inputs>
                 <Label>Username<Input type="text" value={userFromInput.username} onChange={updateUsername} maxLength={20} required/></Label>
                 <Label>Password<Input type="password" value={userFromInput.password} onChange={updatePassword} required/></Label>

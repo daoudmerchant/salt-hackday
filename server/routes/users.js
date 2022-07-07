@@ -11,7 +11,7 @@ const formatUser = user => ({ username: user.username, snippets: user.snippets, 
 router.post("/register", async (req, res) => {
   const existingUser = await db.getUserByUsername(req.body.username);
   if (existingUser) {
-    return res.json({action: "create user", result: "failure", error: "username already exists"})
+    return res.json({action: "create user", result: "failure", error: "User already exists"})
   }
   const user = await db.createNewUser(req.body);
   res.json({action: "create user", result: "success", user: formatUser(user) });
@@ -20,10 +20,10 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   const user = await db.getUserByUsername(req.body.username);
   if (!user) {
-    return res.json({action: "log-in", result: "failure", error: "user not found"});
+    return res.json({action: "log-in", result: "failure", error: "User does not exist"});
   }
   if (!user.validatePassword(req.body.password)) {
-    return res.json({action: "log-in", result: "failure", error: "invalid password"});
+    return res.json({action: "log-in", result: "failure", error: "Password does not match account"});
   }
   res.json({action: "log-in", result: "success", user: formatUser(user) });
 });

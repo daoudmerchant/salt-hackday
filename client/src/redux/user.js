@@ -17,12 +17,20 @@ const checkForError = data => { if (data.error) throw new Error(data.error)}
 export const createUser = createAsyncThunk(
     'user/createUser',
     async (userFields) => {
-        console.log(userFields)
         const user = await db.createUser(userFields);
         checkForError(user)
         return user;
     },
     cancelIfLoading
+)
+
+export const loginUser = createAsyncThunk(
+    'user/loginUser',
+    async (userFields) => {
+        const result = await db.signInUser(userFields);
+        checkForError(result);
+        return result;
+    }
 )
 
 export const addText = createAsyncThunk(
@@ -59,7 +67,10 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        // example: () => "example"
+        resetError: (state) => {
+            state.errorMsg = '';
+            state.status = "idle"
+        }
     },
     extraReducers: (builder) => {
       builder
@@ -69,13 +80,17 @@ const userSlice = createSlice({
         .addCase(addText.pending, setPending)
         .addCase(addText.fulfilled, setFulfilled)
         .addCase(addText.rejected, setRejected)
+        .addCase(loginUser.pending, setPending)
+        .addCase(loginUser.fulfilled, setFulfilled)
+        .addCase(loginUser.rejected, setRejected)
     },
   })
 
-export const selectUser = state => state.user;
+export const selectUser = state => state.user.userData;
 export const selectStatus = state => state.user.status;
 export const selectIfSignedIn = state => Object.keys(state.user.userData).length;
+export const selectError = state => state.user.errorMsg;
 
-// export const { example } = userSlice.actions;
+export const { resetError } = userSlice.actions;
 
 export default userSlice.reducer;

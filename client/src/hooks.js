@@ -46,7 +46,6 @@ export const useNewUser = (validation) => {
         }
         if (validation.uppercase) {
             const passwordHasUppercase = user.password && /[A-Z]/.test(user.password);
-            console.log("UPPERCASE: ", passwordHasUppercase);
             passwordHasUppercase
                 ? setValid(setKey("uppercase", true))
                 : setValid(setKey("uppercase", false))

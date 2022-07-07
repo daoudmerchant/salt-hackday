@@ -14,6 +14,16 @@ const createUser = unwrap(({ username, password}) => {
     })
 });
 
+const signInUser = unwrap(({ username, password}) => {
+    const formBody = new URLSearchParams();
+    formBody.append('username', username);
+    formBody.append('password', password)
+    return fetch('http://localhost:3001/users/login', {
+        method: "POST",
+        body: formBody
+    })
+});
+
 const addSnippet = unwrap((id, snippet) => {
     const formBody = new URLSearchParams();
     Object.entries(snippet).forEach(([key, val]) => {
@@ -25,4 +35,4 @@ const addSnippet = unwrap((id, snippet) => {
     })
 })
 
-export default { createUser, addSnippet }
+export default { createUser, signInUser, addSnippet }

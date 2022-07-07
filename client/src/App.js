@@ -1,12 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { createGlobalStyle} from "styled-components";
 
+import { selectIfSignedIn } from "./redux/user";
+
 import Nav from "./components/Nav";
 import Home from "./pages/Home";
+import UserHome from "./pages/UserHome";
 import Footer from "./components/Footer";
 import FormWrapper from "./components/FormWrapper";
 import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 
 const GlobalStyle = createGlobalStyle`
   html, body, #root {
@@ -37,6 +42,7 @@ const Main = styled.main`
 `
 
 function App() {
+  const signedIn = useSelector(selectIfSignedIn);
   return (
     <>
       <GlobalStyle/>
@@ -44,8 +50,9 @@ function App() {
         <Nav/>
         <Main>
           <Routes>
-            <Route path="/" element={<Home/>}/>
+            <Route path="/" element={signedIn ? <UserHome/> : <Home/>}/>
             <Route path="form" element={<FormWrapper/>}>
+              <Route path="login" element={<Login/>}/>
               <Route path="signup" element={<Signup/>}/>
             </Route>
           </Routes>
