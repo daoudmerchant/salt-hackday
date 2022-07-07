@@ -24,12 +24,12 @@ Validation:
 
 */
 
-const setKey = (key, bool) => prev => ({...prev, [key]: bool})
+const setKey = (key, bool) => prev => ({...prev, [key]: [bool, prev[key][1]]})
 
 export const useNewUser = (validation) => {
     const [user, updateUsername, updatePassword] = useUserDetails();
     const [confirmedPassword, setConfirmedPassword] = useState('');
-    const emptyValidation = {...Object.fromEntries(Object.keys(validation).map(key => [key, false])), matching: false}
+    const emptyValidation = {...Object.fromEntries(Object.keys(validation).map(key => [key, [false, validation[key][1]]])), matching: [false, "Passwords match"]}
     const [valid, setValid] = useState(emptyValidation);
     useEffect(() => {
         if (validation.special) {
@@ -59,14 +59,12 @@ export const useNewUser = (validation) => {
         }
     }, [JSON.stringify(user)])
     useEffect(() => {
-        console.log("RUNNING")
         if (!user.password || !confirmedPassword) {
             return;
         }
         if (user.password !== confirmedPassword) {
             return setValid(setKey("matching", false));
         }
-        console.log("Matches!")
         setValid(setKey("matching", true))
     }, [JSON.stringify(user), confirmedPassword])
     return [

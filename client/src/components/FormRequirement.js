@@ -9,10 +9,10 @@ const InvalidSpan = styled.span`
 `
 
 
-const FormRequirement = ({requirement, valid}) => {
+const FormRequirement = ({valid, message}) => {
     const Span = valid ? ValidSpan : InvalidSpan;
     return (
-        <p><Span>{requirement}</Span></p>
+        <p><Span>{message}</Span></p>
     )
 }
 

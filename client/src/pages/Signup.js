@@ -13,10 +13,10 @@ const Form = styled.form`
 `
 
 const validityCheck = {
-    special: true,
-    number: true,
-    uppercase: true,
-    min: 6
+    special: [true,"At least 1 special character"],
+    number: [true, "At least 1 number"],
+    uppercase: [true, "At least 1 uppercase letter"],
+    min: [6, "At least 6 characters"]
 }
 
 const Signup = () => {
@@ -31,9 +31,9 @@ const Signup = () => {
         <Form onSubmit={handleSubmit}>
             <h1>Create an account</h1>
             <label>Username:<input type="text" value={userFromInput.username} onChange={updateUsername} maxLength={20} required/></label>
-            <label>Password:<input type="text" value={userFromInput.password} onChange={updatePassword} required/></label>
-            <label>Confirm password:<input type="text" value={userFromInput.confirmedPassword} onChange={updateConfirmedPassword}/></label>
-            {Object.entries(valid).map(([key, validity]) => <FormRequirement key={key} requirement={key} valid={validity}/>)}
+            <label>Password:<input type="password" value={userFromInput.password} onChange={updatePassword} required/></label>
+            <label>Confirm password:<input type="password" value={userFromInput.confirmedPassword} onChange={updateConfirmedPassword}/></label>
+            {Object.entries(valid).map(([key, [validity, message]]) => <FormRequirement key={key} valid={validity} message={message}/>)}
             <button type="submit" disabled={!canSubmit}>Submit</button>
         </Form>
     )
