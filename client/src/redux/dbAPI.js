@@ -35,4 +35,13 @@ const addSnippet = unwrap((id, snippet) => {
     })
 })
 
-export default { createUser, signInUser, addSnippet }
+const deleteSnippet = unwrap((id, snippetId) => {
+    const formBody = new URLSearchParams();
+    formBody.append('id', snippetId)
+    return fetch(`http://localhost:3001/users/${id}`, {
+        method: "DELETE",
+        body: formBody
+    })
+})
+
+export default { createUser, signInUser, addSnippet, deleteSnippet }

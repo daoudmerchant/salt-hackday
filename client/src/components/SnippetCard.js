@@ -1,4 +1,6 @@
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { deleteSnippet } from "../redux/user"
 import styled from "styled-components"
 import { getVariables } from "../helpers"
 import { useEditableKeys } from "../hooks"
@@ -28,10 +30,15 @@ const CopyButton = styled.button`
 
 `
 
+const DeleteButton = styled.button`
+
+`
+
 const ClearButton = styled.button`
 `
 
 export const SnippetCard = ({ snippet }) => {
+    const dispatch = useDispatch();
     const [copied, setCopied] = useState(false);
     const variables = getVariables(snippet.text);
     const [variableValues, updateVariableValues, resetVariableValues] = useEditableKeys(variables);
@@ -45,6 +52,11 @@ export const SnippetCard = ({ snippet }) => {
             await navigator.clipboard.writeText(textToCopy);
             setCopied(true);
             setTimeout(() => setCopied(false), 2500);
+        }
+    }
+    const handleDelete = () => {
+        if (confirm("Are you sure you want to delete " + (snippet.title || "this snippet") + "?")) { // eslint-disable-line
+            dispatch(deleteSnippet(snippet._id))
         }
     }
     return (
@@ -62,6 +74,7 @@ export const SnippetCard = ({ snippet }) => {
                 ? <ClearButton disabled={!Object.values(variableValues).some(Boolean)}onClick={resetVariableValues}>Clear</ClearButton>
                 : null
             }
+            <DeleteButton onClick={handleDelete}>Delete</DeleteButton>
             <CopyButton disabled={!canBeCopied} onClick={handleCopy}>{copied ? "Copied!" : "Copy to clipboard"}</CopyButton>
         </Card>
 

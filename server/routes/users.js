@@ -41,7 +41,7 @@ router.put("/:id", async (req, res) => {
 })
 
 router.delete("/:id", async (req, res) => {
-  const updatedUser = await db.deleteSnippet(req.params.id, req.body._id);
+  const updatedUser = await db.deleteSnippet(req.params.id, req.body.id);
   res.json({ action: "delete snippet", result: "success", user: formatUser(updatedUser)})
 })
 

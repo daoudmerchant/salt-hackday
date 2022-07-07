@@ -40,7 +40,17 @@ export const addNewSnippet = createAsyncThunk(
         const id = state.user.userData._id;
         const updated = await db.addSnippet(id, snippet);
         checkForError(updated);
-        console.log(updated)
+        return updated;
+    }
+)
+
+export const deleteSnippet = createAsyncThunk(
+    'user/deleteSnippet',
+    async (snippetId, { getState }) => {
+        const state = getState();
+        const id = state.user.userData._id;
+        const updated = await db.deleteSnippet(id, snippetId);
+        checkForError(updated);
         return updated;
     }
 )
@@ -89,6 +99,9 @@ const userSlice = createSlice({
         .addCase(loginUser.pending, setPending)
         .addCase(loginUser.fulfilled, setFulfilled)
         .addCase(loginUser.rejected, setRejected)
+        .addCase(deleteSnippet.pending, setPending)
+        .addCase(deleteSnippet.fulfilled, setFulfilled)
+        .addCase(deleteSnippet.rejected, setRejected)
     },
   })
 
