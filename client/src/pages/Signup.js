@@ -49,6 +49,10 @@ const Submit = styled.button`
     }
 `
 
+const Error = styled.p`
+    color: red;
+`
+
 const validityCheck = {
     special: [true,"At least 1 special character"],
     number: [true, "At least 1 number"],
@@ -91,6 +95,7 @@ const Signup = () => {
             <Validities>
                 {Object.entries(valid).map(([key, [validity, message]]) => <FormRequirement key={key} valid={validity} message={message}/>)}
             </Validities>
+            <Error>{error}</Error>
             <Submit type="submit" disabled={!canSubmit}>{status === "loading" ? "Submitting" : "Submit"}</Submit>
         </Form>
     )

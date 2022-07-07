@@ -20,11 +20,12 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     height: 100%;
+    font-family: 'Oxygen', sans-serif;
   }
 
   #root {
     display: grid;
-    grid-template-rows: 40px 1fr 40px;
+    grid-template-rows: 4em 1fr 40px;
   }
 
   ul {
@@ -36,6 +37,11 @@ const GlobalStyle = createGlobalStyle`
   button {
     background-color: transparent;
     border: none;
+  }
+
+  a, a:visited {
+    text-decoration: none;
+    color: black;
   }
 `
 
