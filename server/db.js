@@ -36,7 +36,8 @@ module.exports.updateSnippet = query(async (id, snippet) => {
     if (snippet.title) {
         thisSnippet.title = snippet.title;
     }
-    return user.save()
+    await user.save();
+    return User.findById(id).exec();
 })
 
 module.exports.deleteSnippet = query(async (id, snippetId) => {

@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { deleteSnippet } from "../redux/user"
 import styled from "styled-components"
@@ -30,11 +31,15 @@ const CopyButton = styled.button`
 
 `
 
-const DeleteButton = styled.button`
+const ClearButton = styled.button`
+`
+
+const Edit = styled(Link)`
 
 `
 
-const ClearButton = styled.button`
+const DeleteButton = styled.button`
+
 `
 
 export const SnippetCard = ({ snippet }) => {
@@ -46,9 +51,11 @@ export const SnippetCard = ({ snippet }) => {
     const handleCopy = async () => {
         const accessRights = await navigator.permissions.query({name: "clipboard-write"});
         if (accessRights.state === "granted" || accessRights.state === "prompt") {
+            console.log(variables);
             const textToCopy = variables.length
-                ? variables.reduce((str, variable) => str.replace('${' + variable + '}', variableValues[variable]), snippet.text)
+                ? variables.reduce((str, variable) => str.replace(new RegExp('\\$\\{' + variable + '\\}', 'g'), variableValues[variable]), snippet.text)
                 : snippet.text;
+            console.log(textToCopy);
             await navigator.clipboard.writeText(textToCopy);
             setCopied(true);
             setTimeout(() => setCopied(false), 2500);
@@ -74,6 +81,7 @@ export const SnippetCard = ({ snippet }) => {
                 ? <ClearButton disabled={!Object.values(variableValues).some(Boolean)}onClick={resetVariableValues}>Clear</ClearButton>
                 : null
             }
+            <Edit to={`/snippets/${snippet._id}`}>Edit</Edit>
             <DeleteButton onClick={handleDelete}>Delete</DeleteButton>
             <CopyButton disabled={!canBeCopied} onClick={handleCopy}>{copied ? "Copied!" : "Copy to clipboard"}</CopyButton>
         </Card>

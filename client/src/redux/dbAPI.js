@@ -44,4 +44,15 @@ const deleteSnippet = unwrap((id, snippetId) => {
     })
 })
 
-export default { createUser, signInUser, addSnippet, deleteSnippet }
+const updateSnippet = unwrap((id, snippet) => {
+    const formBody = new URLSearchParams();
+    Object.entries(snippet).forEach(([key, val]) => {
+        formBody.append(key, val);
+    })
+    return fetch(`http://localhost:3001/users/${id}`, {
+        method: "PUT",
+        body: formBody
+    })
+})
+
+export default { createUser, signInUser, addSnippet, deleteSnippet, updateSnippet }
