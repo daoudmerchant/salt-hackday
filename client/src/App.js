@@ -13,7 +13,7 @@ import FormWrapper from "./components/FormWrapper";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Settings from "./pages/Settings";
-import Snippet from "./pages/Snippet";
+import SnippetEditor from "./pages/SnippetEditor";
 
 const GlobalStyle = createGlobalStyle`
   html, body, #root {
@@ -58,8 +58,8 @@ function App() {
               <Route path="signup" element={<Signup/>}/>
               <Route path="settings" element={<Settings/>}/>
             </Route>
-            <Route path="/snippets/new" element={<Snippet isNew={true}/>}/>
-            <Route path="/snippets/:id" element={<Snippet/>}/>
+            <Route path="/snippets/new" element={<SnippetEditor isNew={true}/>}/>
+            <Route path="/snippets/:id" element={<SnippetEditor/>}/>
           </Routes>
         </Main>
       </Router>

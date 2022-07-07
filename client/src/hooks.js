@@ -82,3 +82,11 @@ export const useNewUser = (validation) => {
         valid
     ]
 }
+
+export const useEditableKeys = array => {
+    const [object, setObject] = useState(Object.fromEntries(array.map(key => [key, ''])));
+    const updateObject = (key, val) => {
+        setObject(prev => ({...prev, [key]: val}))
+    }
+    return [object, updateObject];
+}

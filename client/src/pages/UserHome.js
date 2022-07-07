@@ -1,17 +1,22 @@
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 import { useSelector } from "react-redux"
 import { selectUser } from "../redux/user"
 
+import SnippetCard from "../components/SnippetCard";
+
+const UserContainer = styled.div`
+
+`
+
 const UserHome = () => {
     const user = useSelector(selectUser);
-    console.log(user);
-    return <Link to="/snippets/new">A snippet link</Link>
-    // return (
-    //     <>
-    //         <p>{user.username}</p>
-    //         {user.snippets.map(snippet => <p>{snippet}</p>)}
-    //     </>
-    // )
-}
+    return (
+        <UserContainer>
+            <Link to="/snippets/new">+ New snippet</Link>
+            {user.snippets.map(snippet => <SnippetCard key={snippet._id} snippet={snippet}/>)}
+        </UserContainer>
+    )
+};
 
 export default UserHome;
