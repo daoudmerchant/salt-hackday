@@ -45,5 +45,7 @@ module.exports.deleteSnippet = query(async (id, snippetId) => {
     const user = await User.findById(id).exec();
     const thisSnippet = user.snippets.id(snippetId);
     thisSnippet.remove();
-    return user.save()
+    await user.save()
+    const updatedUser = await User.findById(id).exec();
+    return updatedUser;
 })

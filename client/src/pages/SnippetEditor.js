@@ -145,7 +145,7 @@ const SnippetEditor = ({ isNew }) => {
     const isChanged = isNew
         || thisSnippet.text !== text
         || thisSnippet.title !== title
-    const canSubmit = Boolean(text) && isChanged && status === "idle";
+    const canSubmit = Boolean(text) && text.trim() && isChanged && status === "idle";
     const handleSubmit = async e => {
         e.preventDefault()
         const snippetToSubmit = title ? {title, text} : {text}
@@ -174,7 +174,7 @@ const SnippetEditor = ({ isNew }) => {
     }, [JSON.stringify(user)]);
     return (
         <SnippetForm onSubmit={handleSubmit}>
-            <Back onClick={() => navigate(-1)}><Icon src={backArrow} alt="back"/>Back to snippets</Back>
+            <Back onClick={() => navigate(-1)} type="button"><Icon src={backArrow} alt="back"/>Back to snippets</Back>
             <Label>Title (optional): <TitleInput value={title} onChange={updateTitle} maxLength={20}/></Label>
             <Label>Snippet: <TextInput value={text} onChange={updateText}/></Label>
             <VariableInfo>Don't forget, you can add variables using <This>{"${this}"}</This> syntax</VariableInfo>
@@ -183,7 +183,7 @@ const SnippetEditor = ({ isNew }) => {
                 <VariableContainer>
                     {variables.map(variable => <Variable key={variable} variable={variable}/>)}
                 </VariableContainer>
-                <Submit disabled={!canSubmit}>{status === "loading" ? "Saving..." : isNew ? "Add" : "Update"}</Submit>
+                <Submit disabled={!canSubmit} type="submit">{status === "loading" ? "Saving..." : isNew ? "Add" : "Update"}</Submit>
             </Container>
         </SnippetForm>
     )

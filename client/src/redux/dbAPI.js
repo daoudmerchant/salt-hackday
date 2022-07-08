@@ -8,7 +8,7 @@ const createUser = unwrap(({ username, password}) => {
     const formBody = new URLSearchParams();
     formBody.append('username', username);
     formBody.append('password', password)
-    return fetch('http://localhost:3001/users/register', {
+    return fetch('/users/register', {
         method: "POST",
         body: formBody
     })
@@ -18,7 +18,7 @@ const signInUser = unwrap(({ username, password}) => {
     const formBody = new URLSearchParams();
     formBody.append('username', username);
     formBody.append('password', password)
-    return fetch('http://localhost:3001/users/login', {
+    return fetch('/users/login', {
         method: "POST",
         body: formBody
     })
@@ -29,7 +29,7 @@ const addSnippet = unwrap((id, snippet) => {
     Object.entries(snippet).forEach(([key, val]) => {
         formBody.append(key, val);
     })
-    return fetch(`http://localhost:3001/users/${id}`, {
+    return fetch(`/users/${id}`, {
         method: "POST",
         body: formBody
     })
@@ -38,7 +38,7 @@ const addSnippet = unwrap((id, snippet) => {
 const deleteSnippet = unwrap((id, snippetId) => {
     const formBody = new URLSearchParams();
     formBody.append('id', snippetId)
-    return fetch(`http://localhost:3001/users/${id}`, {
+    return fetch(`/users/${id}`, {
         method: "DELETE",
         body: formBody
     })
@@ -49,7 +49,7 @@ const updateSnippet = unwrap((id, snippet) => {
     Object.entries(snippet).forEach(([key, val]) => {
         formBody.append(key, val);
     })
-    return fetch(`http://localhost:3001/users/${id}`, {
+    return fetch(`/users/${id}`, {
         method: "PUT",
         body: formBody
     })

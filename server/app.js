@@ -22,7 +22,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, '../client/build')));
+
+// serve static files
+app.use(express.static(path.resolve(__dirname, "../client/build")));
+app.get("*", (_, res) => {
+  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+});
 
 app.use('/users', userRouter);
 
