@@ -1,8 +1,8 @@
 # Salt 36hr Hack Project
 
-[Live Demo](https://immense-coast-30841.herokuapp.com/)
+## [Live Demo](https://immense-coast-30841.herokuapp.com/)
 
-## The goal
+### The goal
 
 To create a simple MERN stack CRUD app with one-click-copy user editable snippets.
 
