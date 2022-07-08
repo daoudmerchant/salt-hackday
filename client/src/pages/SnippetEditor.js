@@ -6,6 +6,8 @@ import { useFormField } from "../hooks";
 import { getVariables } from "../helpers";
 import styled, { css } from "styled-components";
 
+import backArrow from "../assets/left-arrow.png";
+
 import Variable from "../components/VariableGem";
 
 const SnippetForm = styled.form`
@@ -16,6 +18,14 @@ const SnippetForm = styled.form`
     padding: 2em;
     max-width: 600px;
     background-color: white;
+`
+
+const Back = styled.button`
+    font-size: 1em;
+    align-self: end;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 
 const Label = styled.label`
@@ -56,8 +66,7 @@ const Container = styled.div`
 `
 
 const VariableInfo = styled.p`
-    margin-inline: 0;
-    margin-top: 1em;
+    margin: 1em 0 2em;
     background-color: #F0F0F0;
     border-left: 4px solid darkgray;
     padding: 1.3em 2em;
@@ -113,6 +122,11 @@ const Submit = styled.button`
     }
 `
 
+const Icon = styled.img`
+    height: 1em;
+    margin-right: .7em;
+`
+
 const SnippetEditor = ({ isNew }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -160,6 +174,7 @@ const SnippetEditor = ({ isNew }) => {
     }, [JSON.stringify(user)]);
     return (
         <SnippetForm onSubmit={handleSubmit}>
+            <Back onClick={() => navigate(-1)}><Icon src={backArrow} alt="back"/>Back to snippets</Back>
             <Label>Title (optional): <TitleInput value={title} onChange={updateTitle} maxLength={20}/></Label>
             <Label>Snippet: <TextInput value={text} onChange={updateText}/></Label>
             <VariableInfo>Don't forget, you can add variables using <This>{"${this}"}</This> syntax</VariableInfo>

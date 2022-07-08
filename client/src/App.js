@@ -42,6 +42,7 @@ const GlobalStyle = createGlobalStyle`
     background-color: transparent;
     border: none;
     transition: .1s all;
+    cursor: pointer;
   }
 
   a, a:visited {

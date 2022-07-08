@@ -36,7 +36,6 @@ export const loginUser = createAsyncThunk(
 export const addNewSnippet = createAsyncThunk(
     'user/addNewSnippet',
     async (snippet, { getState }) => {
-        console.log("ADDING")
         const state = getState();
         const id = state.user.userData._id;
         const updated = await db.addSnippet(id, snippet);
@@ -48,7 +47,6 @@ export const addNewSnippet = createAsyncThunk(
 export const deleteSnippet = createAsyncThunk(
     'user/deleteSnippet',
     async (snippetId, { getState }) => {
-        console.log("DELETING")
         const state = getState();
         const id = state.user.userData._id;
         const updated = await db.deleteSnippet(id, snippetId);
@@ -63,7 +61,6 @@ export const updateSnippet = createAsyncThunk(
         const state = getState();
         const id = state.user.userData._id;
         const updated = await db.updateSnippet(id, snippet);
-        console.log(updated);
         checkForError(updated);
         return updated;
     }

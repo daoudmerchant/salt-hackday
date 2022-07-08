@@ -105,6 +105,7 @@ export const SnippetCard = ({ snippet, dummy }) => {
     const [deleteOpen, setDeleteOpen] = useState(false);
     const variables = getVariables(snippet.text);
     const [variableValues, updateVariableValues, resetVariableValues] = useEditableKeys(variables);
+
     const canBeCopied = !variables.length || Object.values(variableValues).every(Boolean);
     const handleCopy = async () => {
         const accessRights = await navigator.permissions.query({name: "clipboard-write"});

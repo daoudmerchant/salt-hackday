@@ -11,9 +11,12 @@ const FormContainer = styled.div`
     margin-top: 2em;
     & > * {
         flex-grow: 1;
-        padding: 0;
-        border: 2px solid black;
+        padding: 2em;
+        border: 1px solid grey;
         border-radius: 15px;
+        h1 {
+            margin-block: 0;
+        }
     }
 `;
 

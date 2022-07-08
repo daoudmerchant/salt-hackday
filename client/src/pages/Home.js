@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
 
 import SnippetCard from "../components/SnippetCard";
@@ -57,12 +58,14 @@ const Invite = styled.p`
 const Scissors = () => <ScissorImg src={scissors} alt="scissor icon"/>
 
 const Home = () => {
+    const noPointer = useMediaQuery({query: "(pointer: coarse)"});
+    const noCursor = useMediaQuery({query: "(hover: none)"});
     return (
         <Container>
             <Logo>S<Scissors/>ippets</Logo>
             <Subtitle>One-click copy text snippets</Subtitle>
             <SnippetContainer>
-                <SnippetCard snippet={{text: "Click the icon to copy this text"}} dummy={true}/>
+                <SnippetCard snippet={{text: `${noPointer && noCursor ? "Tap" : "Click"} here to copy this text`}} dummy={true}/>
             </SnippetContainer>
             <LogIn to="/form/login">Log in</LogIn>
             <Invite>No account? <SignUp to="/form/signup">Sign up</SignUp></Invite>
