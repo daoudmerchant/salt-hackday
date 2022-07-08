@@ -47,13 +47,11 @@ const TextInput = styled.textarea`
 
 const Container = styled.div`
     grid-column: 1 / -1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    column-gap: 1em;
+    grid-template-columns: 1fr;
     @media (min-width: 600px) {
-        justify-content: space-between;
-        flex-direction: row;
-        align-items: flex-end;
+        grid-template-columns: 2fr 1fr;
     }
 `
 
@@ -67,12 +65,23 @@ const VariableInfo = styled.p`
 
 const VariableContainer = styled.div`
     display: flex;
-    flex-wrap: wrap;
-    margin-top: .5em;
+    overflow-y: auto;
+    margin-top: .1em;
     justify-content: center;
+    align-items: center;
+    background-color: #F8F8F8;
+    grid-column: 1 / 2;
     @media (min-width: 600px) {
+        grid-row: 2 / 3;
         justify-content: left;
     }
+`
+
+const VariableHeader = styled.p`
+    margin-block: 0;
+    margin-left: 1em;
+    font-size: .8em;
+    grid-column: 1 / 2;
 `
 
 const This = styled.span`
@@ -86,9 +95,16 @@ const Submit = styled.button`
     font-size: 1.8em;
     border-radius: 5px;
     padding-block: .5em;
-    width: 10em;
-    margin-top: 1em;
+    width: 200px;
+    align-self: end;
+    margin-inline: auto;
     white-space: nowrap;
+    margin-top: .8em;
+    @media (min-width: 600px) {
+        margin-top: 0;
+        grid-column: -2 / -1;
+        grid-row: 2 / 3;
+    }
     &:disabled {
         border-color: silver;
         background-color: transparent;
@@ -147,6 +163,7 @@ const SnippetEditor = ({ isNew }) => {
             <Label>Snippet: <TextInput value={text} onChange={updateText}/></Label>
             <VariableInfo>Don't forget, you can add variables using <This>{"${this}"}</This> syntax</VariableInfo>
             <Container>
+                <VariableHeader>Declared variables (scrollable):</VariableHeader>
                 <VariableContainer>
                     {variables.map(variable => <Variable key={variable} variable={variable}/>)}
                 </VariableContainer>
