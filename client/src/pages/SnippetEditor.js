@@ -67,6 +67,7 @@ const VariableContainer = styled.div`
     display: flex;
     overflow-y: auto;
     margin-top: .1em;
+    min-height: 2.8em;
     justify-content: center;
     align-items: center;
     background-color: #F8F8F8;
@@ -167,7 +168,7 @@ const SnippetEditor = ({ isNew }) => {
                 <VariableContainer>
                     {variables.map(variable => <Variable key={variable} variable={variable}/>)}
                 </VariableContainer>
-                <Submit disabled={!canSubmit}>{status === "loading" ? "Saving..." : isNew ? "Add snippet" : "Update snippet"}</Submit>
+                <Submit disabled={!canSubmit}>{status === "loading" ? "Saving..." : isNew ? "Add" : "Update"}</Submit>
             </Container>
         </SnippetForm>
     )

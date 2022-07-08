@@ -1,12 +1,13 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import styled from "styled-components"
 import { useDispatch } from "react-redux"
 import { deleteSnippet } from "../redux/user"
-import styled from "styled-components"
 import { getVariables } from "../helpers"
 import { useEditableKeys } from "../hooks"
 
 import VariableInput from "./VariableInput"
+import DeleteCard from "./DeleteCard"
 
 import check from "../assets/check.png";
 import copy from "../assets/copy.png";
@@ -18,43 +19,47 @@ const Card = styled.div`
     border-radius: 15px;
     transition: .5s all;
     background-color: ${({$clicked}) => $clicked ? "#c7f0b4" : "white"};
-    padding: 2em;
     margin-top: 2em;
+    position: relative;
+    overflow: hidden;
 `
 
 const MainContainer = styled.div`
     display: grid;
-    grid-template-columns: 1fr repeat(3, 3em);
+    grid-template-columns: 1fr repeat(3, 3em) 1.5em;
     align-items: center;
 `
 
 const SnippetName = styled.p`
+    cursor: pointer;
     height: 100px;
     max-width: 500px;
-    margin: 0;
+    margin-block: 0;
+    margin-left: 1.5em;
     font-size: 1.2em;
     text-overflow: ellipsis;
     overflow: hidden;
     whitespace: nowrap;
     display: flex;
     align-items: center;
-    `
+`
     
     const SnippetContents = styled.div`
     margin-right: auto;
     width: 100%;
     padding-right: ${({$dummy}) => $dummy ? "1em" : "0"};
-    ${({$dummy}) => $dummy ? "grid-column: 1 / -2;" : ""}
+    ${({$dummy}) => $dummy ? "grid-column: 1 / -3;" : ""}
 `
 
 const VariableContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr;
     gap: 1em;
+    margin: 0 2em 2em;
 `
 
 const CopyButton = styled.button`
-    grid-column: -2 / -1;
+    grid-column: -3 / -2;
     &:disabled {
         opacity: .2;
     }
@@ -78,12 +83,12 @@ const ClearButton = styled.button`
 `
 
 const Edit = styled(Link)`
-    grid-column: -3 / -2;
+    grid-column: -4 / -3;
     margin-inline: auto;
 `
 
 const DeleteButton = styled.button`
-    grid-column: -4 / -3;
+    grid-column: -5 / -4;
 `
 
 const Icon = styled.img`
@@ -97,6 +102,7 @@ const SmallIcon = styled.img`
 export const SnippetCard = ({ snippet, dummy }) => {
     const dispatch = useDispatch();
     const [copied, setCopied] = useState(false);
+    const [deleteOpen, setDeleteOpen] = useState(false);
     const variables = getVariables(snippet.text);
     const [variableValues, updateVariableValues, resetVariableValues] = useEditableKeys(variables);
     const canBeCopied = !variables.length || Object.values(variableValues).every(Boolean);
@@ -111,35 +117,34 @@ export const SnippetCard = ({ snippet, dummy }) => {
             setTimeout(() => setCopied(false), 2500);
         }
     }
-    const handleDelete = () => {
-        if (confirm("Are you sure you want to delete " + (snippet.title || "this snippet") + "?")) { // eslint-disable-line
-            dispatch(deleteSnippet(snippet._id))
-        }
-    }
     return (
         <Card $clicked={copied}>
+            <DeleteCard remove={() => dispatch(deleteSnippet(snippet._id))} isOpen={deleteOpen} cancel={() => setDeleteOpen(false)}/>
             <MainContainer>
-                <SnippetContents $dummy={dummy}>
+                <SnippetContents $dummy={dummy} onClick={handleCopy}>
                     <SnippetName>{snippet.title || snippet.text}</SnippetName>
                 </SnippetContents>
                 {dummy
                     ? null
                     : <>
-                        <DeleteButton onClick={handleDelete}><SmallIcon src={bin} alt="delete"/></DeleteButton>
+                        <DeleteButton onClick={() => setDeleteOpen(true)}><SmallIcon src={bin} alt="delete"/></DeleteButton>
                         <Edit to={`/snippets/${snippet._id}`}><SmallIcon src={pencil} alt="edit"/></Edit>
                     </>}
                 <CopyButton disabled={!canBeCopied} onClick={handleCopy}>{copied ? <Icon src={check} alt="checkmark"/> : <Icon src={copy} alt="copy to clipboard"/>}</CopyButton>
             </MainContainer>
             {variables.length
-                    ? <ClearButton disabled={!Object.values(variableValues).some(Boolean)}onClick={resetVariableValues}>Clear fields</ClearButton>
-                    : null
+                    ? (
+                    <>
+                        <ClearButton disabled={!Object.values(variableValues).some(Boolean)}onClick={resetVariableValues}>Clear fields</ClearButton>
+                        <VariableContainer>
+                            {variables.map(variable => {
+                                const update = e => updateVariableValues(variable, e.target.value);
+                                return <VariableInput key={variable} variable={variable} update={update} value={variableValues[variable]} />
+                            })}
+                        </VariableContainer>
+                    </>
+                    ) : null
                 }
-            <VariableContainer>
-                {variables.map(variable => {
-                    const update = e => updateVariableValues(variable, e.target.value);
-                    return <VariableInput key={variable} variable={variable} update={update} value={variableValues[variable]} />
-                })}
-            </VariableContainer>
         </Card>
 
     )
